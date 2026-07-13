@@ -1,0 +1,352 @@
+/* =============================================
+   EE Lab — logs.css
+   Styles specific to the Lab Logs page
+   ============================================= */
+
+/* --- Hidden utility (must be defined here for logs page) --- */
+.hidden { display: none !important; }
+
+/* --- Skeleton tbody rows --- */
+.skel-row-tr td {
+    padding: .75rem 1rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.skel-row-tr .skel-cell {
+    height: 14px;
+    border-radius: 4px;
+    display: block;
+}
+
+/* --- Page Header --- */
+.logs-header {
+    background-color: var(--nav);
+    color: var(--text-inv);
+    padding: 2rem;
+    border-radius: 14px;
+    margin-bottom: 1.5rem;
+    box-shadow: var(--shadow-md);
+}
+
+.logs-header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 1.25rem;
+    flex-wrap: wrap;
+}
+
+.logs-header h1 {
+    margin: 0 0 .25rem;
+    font-size: 1.6rem;
+    font-weight: 700;
+}
+
+.header-sub {
+    margin: 0;
+    font-size: .85rem;
+    color: #64748b;
+}
+
+/* --- Refresh button --- */
+.refresh-btn {
+    display: flex;
+    align-items: center;
+    gap: .45rem;
+    padding: 8px 16px;
+    background: #1e3a5f;
+    border: 1px solid #2a4a6e;
+    border-radius: var(--radius);
+    color: #94a3b8;
+    font-family: 'Inter', sans-serif;
+    font-size: .85rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background .15s, color .15s;
+    flex-shrink: 0;
+}
+
+.refresh-btn:hover { background: #2a4a6e; color: #fff; }
+
+.refresh-btn svg {
+    transition: transform .4s;
+}
+
+.refresh-btn.spinning svg {
+    animation: spin .7s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* --- Summary chips --- */
+.logs-chips {
+    display: flex;
+    gap: .5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+}
+
+/* --- Filter bar --- */
+.filter-bar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+}
+
+.filter-group label {
+    font-size: .7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    color: #64748b;
+}
+
+.filter-select {
+    padding: 8px 32px 8px 12px;
+    font-size: .88rem;
+    font-family: 'Inter', sans-serif;
+    background: #1e3a5f;
+    border: 1px solid #2a4a6e;
+    border-radius: var(--radius);
+    color: var(--text-inv);
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2394a3b8' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    transition: border-color .2s;
+}
+
+.filter-select:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(245,158,11,.2);
+}
+
+.filter-result {
+    font-size: .8rem;
+    color: #64748b;
+    margin-top: 1rem;
+    font-style: italic;
+    align-self: flex-end;
+    padding-bottom: 2px;
+}
+
+/* --- Table wrap --- */
+.logs-table-wrap {
+    background: var(--surface);
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+}
+
+/* --- Skeleton rows --- */
+.logs-skeleton {
+    padding: 1rem 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: .75rem;
+}
+
+.skel-row {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+
+.skel-cell {
+    height: 14px;
+    border-radius: 4px;
+    flex-shrink: 0;
+}
+
+.w40 { width: 40%; }
+.w20 { width: 20%; }
+.w15 { width: 15%; }
+.w10 { width: 10%; }
+
+/* --- Logs table --- */
+.logs-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: .875rem;
+}
+
+.logs-table thead {
+    background: #f8fafc;
+    border-bottom: 2px solid var(--border);
+}
+
+.logs-table th {
+    padding: .85rem 1rem;
+    text-align: left;
+    font-size: .72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    color: var(--text-sec);
+    white-space: nowrap;
+}
+
+.logs-table th:last-child { text-align: center; }
+
+.logs-table tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background .12s;
+}
+
+.logs-table tbody tr:last-child { border-bottom: none; }
+
+.logs-table tbody tr:hover { background: #f8fafc; }
+
+.logs-table td {
+    padding: .85rem 1rem;
+    color: var(--text-pri);
+    vertical-align: middle;
+}
+
+.logs-table td:last-child { text-align: center; }
+
+/* Name cell */
+.td-name {
+    font-weight: 600;
+}
+
+/* Section cell */
+.td-section {
+    color: var(--text-sec);
+    font-size: .82rem;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+/* Type badge */
+.type-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: .3rem;
+    padding: 3px 10px;
+    border-radius: 5px;
+    font-size: .72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .4px;
+    white-space: nowrap;
+}
+
+.type-borrow      { background: #dbeafe; color: #1d4ed8; }
+.type-buy         { background: var(--accent-dim); color: #92400e; }
+.type-request-new { background: #f3e8ff; color: #7c3aed; }
+
+/* Materials cell */
+.td-materials {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .82rem;
+    font-weight: 600;
+}
+
+/* Reason cell */
+.td-reason {
+    color: var(--text-sec);
+    font-size: .83rem;
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Time cell */
+.td-time {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: .78rem;
+    color: var(--text-sec);
+    white-space: nowrap;
+}
+
+/* --- Status badges — color coded --- */
+.status-badge {
+    display: inline-block;
+    padding: 4px 10px;
+    border-radius: 5px;
+    font-size: .72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: .5px;
+    white-space: nowrap;
+}
+
+/* 🔵 Blue — reserved (item not yet handed out) */
+.status-reserved {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+/* 🔴 Red — active/unresolved */
+.status-not-returned,
+.status-pending {
+    background: var(--danger-bg);
+    color: var(--danger);
+}
+
+/* 🟢 Green — resolved/complete */
+.status-returned,
+.status-purchased,
+.status-acknowledged {
+    background: var(--ok-bg);
+    color: var(--ok);
+}
+
+/* Fallback for unknown status */
+.status-unknown {
+    background: #f1f5f9;
+    color: var(--text-sec);
+}
+
+/* --- Empty / error state --- */
+.state-message {
+    text-align: center;
+    padding: 3.5rem 1rem;
+    color: var(--text-sec);
+}
+
+.state-message .state-icon {
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: .75rem;
+}
+
+.state-message h3 {
+    margin: 0 0 .4rem;
+    font-size: 1.1rem;
+    color: var(--text-pri);
+}
+
+.state-message p {
+    margin: 0;
+    font-size: .9rem;
+}
+
+/* --- Responsive table (horizontal scroll on mobile) --- */
+@media (max-width: 700px) {
+    .logs-header   { padding: 1.25rem; }
+    .logs-table-wrap { overflow-x: auto; }
+    .logs-table { min-width: 640px; }
+    .td-reason { max-width: 120px; }
+}
+
+@media (max-width: 480px) {
+    .filter-bar { gap: .75rem; }
+    .filter-result { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .refresh-btn svg { animation: none; }
+}

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Request Items — ElectroStock</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="request.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-mark">⚡</span>
+                <div class="logo-text">
+                    <span class="logo-main">ElectroStock</span>
+                    <span class="logo-sub">EE Lab Inventory System</span>
+                </div>
+            </div>
+            <div class="nav-links">
+                <a href="index.html">Dashboard</a>
+                <a href="request.html" class="active">Request Items</a>
+                <a href="logs.html">Lab Logs</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+
+        <div class="request-layout">
+
+            <!-- Left: Form panel -->
+            <div class="form-panel">
+                <div class="form-panel-header">
+                    <h1>Request Items</h1>
+                    <p>Fill out the form below. The lab in-charge will review your request.</p>
+                </div>
+
+                <!-- Request type tabs -->
+                <div class="type-tabs" id="typeTabs">
+                    <button class="type-tab active" data-type="Borrow">
+                        <span class="tab-icon">🔄</span>
+                        <span class="tab-label">Borrow</span>
+                        <span class="tab-desc">Return after use</span>
+                    </button>
+                    <button class="type-tab" data-type="Buy">
+                        <span class="tab-icon">🛒</span>
+                        <span class="tab-label">Buy</span>
+                        <span class="tab-desc">Purchase from lab</span>
+                    </button>
+                    <button class="type-tab" data-type="Request New">
+                        <span class="tab-icon">📋</span>
+                        <span class="tab-label">Request New</span>
+                        <span class="tab-desc">Not in stock yet</span>
+                    </button>
+                </div>
+
+                <!-- Borrower notice — shown only for the Borrow tab -->
+                <div class="lendable-notice" id="lendableNotice">
+                    <h3>⚠️ Notice to Users</h3>
+                    <ol>
+                        <li><strong>Valid ID Deposited:</strong> A valid ID must be left at the desk before any requested item can be issued to you. Your ID will be returned once the item is brought back.</li>
+                        <li><strong>On-Premises Use Only:</strong> Items cannot be taken home under any circumstances. All equipment must remain within the designated area.</li>
+                        <li><strong>Non-SELENS Students:</strong> While SELENS students enjoy standard access, requests made by students from outside the SELENS department are subject to additional fees.</li>
+                        <li><strong>Fines for Damage:</strong> Please inspect items before leaving. Any damages detected upon return will result in a fine and the patron will be held financially responsible.</li>
+                    </ol>
+                </div>
+
+                <!-- The form -->
+                <div class="request-form" id="requestForm">
+
+                    <div class="field-row">
+                        <div class="field-group">
+                            <label for="studentName">Full Name</label>
+                            <input type="text" id="studentName" placeholder="e.g. Juan dela Cruz" autocomplete="name">
+                        </div>
+                        <div class="field-group">
+                            <label for="studentSection">Course / Year Level / Section</label>
+                            <input type="text" id="studentSection" placeholder="e.g. BSEE 3-1">
+                        </div>
+                    </div>
+
+                    <!-- Borrow / Buy: dropdown populated dynamically from sheet -->
+                    <div class="field-group" id="itemSelectGroup">
+                        <label for="itemSelect">Item</label>
+                        <select id="itemSelect">
+                            <option value="" disabled selected>— Loading items… —</option>
+                        </select>
+                    </div>
+
+                    <!-- Request New: free-text item name -->
+                    <div class="field-group hidden" id="itemTextGroup">
+                        <label for="itemText">Item Name</label>
+                        <input type="text" id="itemText" placeholder="e.g. ATmega328P Microcontroller">
+                    </div>
+
+                    <div class="field-row">
+                        <div class="field-group field-group--small">
+                            <label for="quantity">Quantity</label>
+                            <input type="number" id="quantity" min="1" value="1" placeholder="1">
+                        </div>
+                        <div class="field-group">
+                            <label for="reason">Reason / Purpose</label>
+                            <input type="text" id="reason" placeholder="e.g. ECE 412 Lab experiment 3">
+                        </div>
+                    </div>
+
+                    <button class="submit-btn" id="submitBtn">
+                        <span id="submitLabel">Submit Request</span>
+                        <span id="submitSpinner" class="spinner hidden"></span>
+                    </button>
+
+                </div>
+            </div>
+
+            <!-- Right: Info panel -->
+            <aside class="info-panel">
+                <div class="info-card">
+                    <h3>How it works</h3>
+                    <ol class="steps-list">
+                        <li>
+                            <span class="step-num">1</span>
+                            <div>
+                                <strong>Choose a type</strong>
+                                <p>Borrow if you'll return it, Buy if you need to keep it, or Request New if we don't have it.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="step-num">2</span>
+                            <div>
+                                <strong>Fill out the form</strong>
+                                <p>Your name, section, what you need, and why.</p>
+                            </div>
+                        </li>
+                        <li>
+                            <span class="step-num">3</span>
+                            <div>
+                                <strong>Lab in-charge reviews it</strong>
+                                <p>Your request is logged and will be processed during lab hours.</p>
+                            </div>
+                        </li>
+                    </ol>
+                </div>
+
+                <div class="info-card info-card--note">
+                    <span class="note-icon">⏰</span>
+                    <p><strong>Lab hours:</strong> Mon–Fri, 8 AM – 5 PM. Requests outside these hours will be processed the next working day.</p>
+                </div>
+
+                <div class="info-card">
+                    <h3>Default statuses assigned</h3>
+                    <ul class="status-legend">
+                        <li>
+                            <span class="tab-icon">🔄</span>
+                            <span class="legend-type">Borrow</span>
+                            <span class="status-badge reserved">Reserved</span>
+                        </li>
+                        <li>
+                            <span class="tab-icon">🛒</span>
+                            <span class="legend-type">Buy</span>
+                            <span class="status-badge pending">Pending</span>
+                        </li>
+                        <li>
+                            <span class="tab-icon">📋</span>
+                            <span class="legend-type">Request New</span>
+                            <span class="status-badge acknowledged">Acknowledged</span>
+                        </li>
+                    </ul>
+                    <p style="margin: 1rem 0 0; font-size: .78rem; color: var(--text-sec); line-height: 1.5;">
+                        Borrow requests move through:<br>
+                        <strong>Reserved</strong> → <strong>Not Returned</strong> → <strong>Returned</strong>
+                    </p>
+                </div>
+            </aside>
+
+        </div>
+    </main>
+
+    <!-- Success overlay -->
+    <div class="success-overlay" id="successOverlay">
+        <div class="success-card">
+            <div class="success-icon">✅</div>
+            <h2>Request Submitted</h2>
+            <p id="successMessage">Your request has been logged. The lab in-charge will process it during lab hours.</p>
+            <div class="success-actions">
+                <a href="index.html" class="btn-secondary">Back to Dashboard</a>
+                <button class="btn-primary" id="newRequestBtn">Submit Another</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="request.js"></script>
+</body>
+</html>

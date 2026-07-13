@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ElectroStock — EE Lab Inventory System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <span class="logo-mark">⚡</span>
+                <div class="logo-text">
+                    <span class="logo-main">ElectroStock</span>
+                    <span class="logo-sub">EE Lab Inventory System</span>
+                </div>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="active">Dashboard</a>
+                <a href="request.html">Request Items</a>
+                <a href="logs.html">Lab Logs</a>
+            </div>
+            <div class="nav-status" id="navStatus">
+                <span class="status-dot"></span>
+                <span class="status-label">Connecting...</span>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+
+        <header class="search-header">
+            <div class="header-top">
+                <div>
+                    <h1>Component Stock</h1>
+                    <p class="header-sub">Live data from the lab sheet</p>
+                </div>
+                <div class="summary-chips" id="summaryChips">
+                    <div class="chip chip--total"><span class="chip-num" id="totalCount">—</span><span class="chip-label">Total</span></div>
+                    <div class="chip chip--ok"><span class="chip-num" id="availCount">—</span><span class="chip-label">Available</span></div>
+                    <div class="chip chip--warn"><span class="chip-num" id="lowCount">—</span><span class="chip-label">Low Stock</span></div>
+                    <div class="chip chip--danger"><span class="chip-num" id="outCount">—</span><span class="chip-label">Out</span></div>
+                </div>
+            </div>
+            <div class="search-wrapper">
+                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+                <input type="text" id="searchInput" placeholder="Search by name or category…" autocomplete="off">
+                <kbd class="search-kbd">Type to filter</kbd>
+            </div>
+            <div class="filter-row" id="filterRow">
+                <button class="filter-btn active" data-itemtype="All">All</button>
+                <button class="filter-btn" data-itemtype="Sellable">🛒 Sellable</button>
+                <button class="filter-btn" data-itemtype="Lendable">🔄 Lendable</button>
+            </div>
+        </header>
+
+        <div class="lendable-notice hidden" id="lendableNotice">
+            <h3>⚠️ Notice to Users</h3>
+            <ol>
+                <li><strong>Valid ID Deposited:</strong> A valid ID must be left at the desk before any requested item can be issued to you. Your ID will be returned once the item is brought back.</li>
+                <li><strong>On-Premises Use Only:</strong> Items cannot be taken home under any circumstances. All equipment must remain within the designated area.</li>
+                <li><strong>Non-SELENS Students:</strong> While SELENS students enjoy standard access, requests made by students from outside the SELENS department are subject to additional fees.</li>
+                <li><strong>Fines for Damage:</strong> Please inspect items before leaving. Any damages detected upon return will result in a fine and the patron will be held financially responsible.</li>
+            </ol>
+        </div>
+
+        <section class="inventory-grid" id="inventoryGrid"></section>
+
+    </main>
+
+    <!-- Detail Modal -->
+    <div class="modal-overlay" id="modalOverlay" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal">
+            <button class="modal-close" id="modalClose" aria-label="Close">✕</button>
+            <div class="modal-icon" id="modalIcon"></div>
+            <h2 class="modal-title" id="modalTitle"></h2>
+            <p class="modal-category" id="modalCategory"></p>
+            <div class="modal-divider"></div>
+            <div class="modal-stats">
+                <div class="modal-stat">
+                    <span class="modal-stat-label">Quantity</span>
+                    <span class="modal-stat-value mono" id="modalQty"></span>
+                </div>
+                <div class="modal-stat">
+                    <span class="modal-stat-label">Status</span>
+                    <span class="modal-stat-value" id="modalStatus"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
